@@ -10,7 +10,7 @@ describe('Products', () => {
         let productData
 
         before(async ()  => {
-            token = await getToken(process.env.email, process.env.password)
+            token = await getToken(process.env.EMAIL, process.env.PASSWORD)
         })
 
         beforeEach(() => {
