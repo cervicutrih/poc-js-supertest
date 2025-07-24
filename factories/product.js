@@ -1,6 +1,4 @@
 const { faker } = require('@faker-js/faker')
-
-
     
     const productFactory = () => {
         var productData = {
@@ -11,8 +9,6 @@ const { faker } = require('@faker-js/faker')
         }
         return productData
     }
-
-
 
 module.exports = {
     productFactory
