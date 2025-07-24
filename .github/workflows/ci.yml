@@ -28,6 +28,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug Environment Variables Length
+        run: |
+          echo "BASE_URL length: ${#BASE_URL}"
+          echo "EMAIL length: ${#EMAIL}"
+          echo "PASSWORD length: ${#PASSWORD}"
+
       - name: Run tests and generate Allure results
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
