@@ -14,6 +14,7 @@ jobs:
     permissions:
       contents: write
       pages: write
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -33,28 +34,25 @@ jobs:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          echo "Environment variables:"
-          echo "BASE_URL: $BASE_URL"
-          echo "EMAIL: $EMAIL"
-          echo "PASSWORD: $PASSWORD"
-          # Don't echo PASSWORD for security
           echo "Running tests..."
-          npm test -- --reporter spec
-      
-      - name: Upload test results on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: |
-            allure-results/
-            allure-report/
+          npm test
 
       - name: Generate Allure report
+        if: always()
         run: npm run allure:generate
+      
+      - name: Setup Pages
+        if: always()
+        uses: actions/configure-pages@v4
 
-      - name: Deploy report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          path: 'allure-report'
+
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
