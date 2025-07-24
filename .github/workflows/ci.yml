@@ -27,6 +27,10 @@ jobs:
         run: npm ci
 
       - name: Run tests and generate Allure results
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
         run: npm test
 
       - name: Generate Allure report

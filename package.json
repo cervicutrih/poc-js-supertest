@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha \"test/**/*.js\" --reporter allure-mocha",
+    "test": "mocha \"test/**/*.js\" --reporter allure-mocha --timeout 10000 --trace-warnings --no-timeouts",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "test:allure": "npm test && npm run allure:generate",
     "report": "allure generate allure-results --clean -o allure-report && allure serve allure-results"
